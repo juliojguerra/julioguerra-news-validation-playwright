@@ -3,7 +3,7 @@ import POManager from "../pageobjects/POManager";
 import path from "path";
 import fs from "fs";
 
-test("Confirm first News Article is valid", async ({ browser }) => {
+test("First News Article is valid", async ({ browser }) => {
   // Load cookie data from JSON file
   const cookiePath = path.join(__dirname, "../data/cookies.json");
   const cookiesArr = JSON.parse(fs.readFileSync(cookiePath, "utf-8"));
