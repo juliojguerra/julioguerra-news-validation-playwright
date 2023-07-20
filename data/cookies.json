@@ -1,0 +1,16 @@
+[
+  {
+    "domain": ".theguardian.com",
+    "expirationDate": 1721238861.87502,
+    "hostOnly": false,
+    "httpOnly": false,
+    "name": "consentUUID",
+    "path": "/",
+    "None": "no_restriction",
+    "secure": true,
+    "session": false,
+    "storeId": "0",
+    "value": "de054d39-b711-4877-925b-2130c7334269_21",
+    "id": 7
+  }
+]
