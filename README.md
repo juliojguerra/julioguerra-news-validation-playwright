@@ -8,6 +8,8 @@ Application under test: [The Guardian](https://www.theguardian.com/tone/news)
 
 Test: Confirm First News Article is valid
 
+[Test Video](https://share.cleanshot.com/rmBz0vxl)
+
 ## Stack
 - playwright: ^1.36.1
 - typescript: ^5.1.6
