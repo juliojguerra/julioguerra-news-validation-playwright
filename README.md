@@ -32,13 +32,20 @@ npm install
 Note: See more ways to execute tests in the package.json file
 
 ## Additional information 
-For non-technical staff:
-📁 Cucumber Tests are located in /features folder
-Cucumber tests are easier to read.
+### For non-technical staff:
 
-For technical staff:
+📁 Cucumber Tests are located in /features folder
+
+Note: Cucumber tests are easier to read.
+
+
+### For technical staff:
+
 📁 Tests are located in /tests folder
+
 📁 Page Objects are located in /pageobjects folder
 
-All:
+
+### All:
+
 📁 Screenshots and videos are located in /playwright-report/data folder
