@@ -4,7 +4,8 @@
   "description": "Validate articles are valid on the page https://www.theguardian.com/tone/news",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test",
+    "test": "npx cucumber-js",
+    "test:pw": "npx playwright test",
     "test:headed": "npx playwright test --headed",
     "test:debug": "npx playwright test --debug"
   },
