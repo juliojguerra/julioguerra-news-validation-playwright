@@ -25,27 +25,27 @@ class GooglePage {
     await this.page.getByRole("button", { name: "Accept all" }).click();
   }
 
-  async searchAndLogValidNews(newsTitles: Array<string>) {
+  async searchAndLogValidNews(
+    newsTitles: Array<string>,
+    position: number,
+    numValidSources: number
+  ) {
     let validNewsCount: number;
-    let newsValidArr: NewsItem[] = [];
+    let newsItemLog: NewsItem;
 
-    for (let index = 1; index <= 2; index++) {
-      validNewsCount = 0;
-      let title = newsTitles[index];
+    validNewsCount = 0;
+    let title = newsTitles[position];
 
-      await this.searchFor(title, index);
+    await this.searchFor(title, position);
 
-      validNewsCount = await this.getValidNewsCount();
+    validNewsCount = await this.getValidNewsCount(numValidSources);
 
-      newsValidArr.push({
-        title: title,
-        isValid: validNewsCount >= 2 ? true : false,
-      });
-    }
+    newsItemLog = {
+      title: title,
+      isValid: validNewsCount >= numValidSources ? true : false,
+    };
 
-    // console.log("newsValidArr:", newsValidArr);
-
-    return newsValidArr;
+    return newsItemLog;
   }
 
   async searchFor(title: string, index: number) {
@@ -61,14 +61,14 @@ class GooglePage {
     await this.page.waitForURL("**/search?**");
   }
 
-  async getValidNewsCount() {
+  async getValidNewsCount(numValidSources: number) {
     let validNewsCount: number = 0;
 
     const googleNewsSites = await this.googleNewsTitles.allTextContents();
 
     for (
       let index = 0;
-      index < googleNewsSites.length && validNewsCount <= 2;
+      index < googleNewsSites.length && validNewsCount <= numValidSources;
       index++
     ) {
       if (googleNewsSites[index] != "The Guardian") {
@@ -77,18 +77,6 @@ class GooglePage {
     }
 
     return validNewsCount;
-  }
-
-  assertValidNews(newsValidArr: NewsItem[]) {
-    for (let index = 0; index < newsValidArr.length; index++) {
-      console.log(
-        `News Title: "${newsValidArr[index].title}" ${
-          newsValidArr[index].isValid ? "is valid" : "is not valid"
-        }`
-      );
-
-      expect(newsValidArr[index].isValid).toBeTruthy();
-    }
   }
 
   async getGoogleNewsSites() {
