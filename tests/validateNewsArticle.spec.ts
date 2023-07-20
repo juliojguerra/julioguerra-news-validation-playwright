@@ -3,12 +3,14 @@ import POManager from "../pageobjects/POManager";
 import path from "path";
 import fs from "fs";
 
-test("Validate News Article", async ({ browser }) => {
+test("Validate News Articles", async ({ browser }) => {
   // Load cookie data from JSON file
   const cookiePath = path.join(__dirname, "../data/cookies.json");
   const cookiesArr = JSON.parse(fs.readFileSync(cookiePath, "utf-8"));
   const context = await browser.newContext({});
   await context.addCookies([...cookiesArr]);
+
+  // Prepare page
   const page = await context.newPage();
 
   // Initialize Page Objects Manager
@@ -25,19 +27,22 @@ test("Validate News Article", async ({ browser }) => {
   // Accept all cookies
   await googlePage.acceptCookies();
 
-  const newsValidArr = await googlePage.searchAndLogValidNews(newsTitles);
+  // Search for the first article
+  const positionNewsArticle = 1;
+  const numValidSources = 2;
 
-  // googlePage.assertValidNews(newsValidArr);
+  // Log News Article as valid if it has a minimum of numValidSources
+  const firstNewsLog = await googlePage.searchAndLogValidNews(
+    newsTitles,
+    positionNewsArticle,
+    numValidSources
+  );
 
-  for (const news of newsValidArr) {
-    expect(news.title).toBeDefined;
-    expect(news.isValid).toBeTruthy;
+  // Assertions, expect article to be valid (2 or more sources were found)
+  expect(firstNewsLog.title).toBeDefined();
+  expect(firstNewsLog.isValid).toBeTruthy();
 
-    if (!news.isValid) {
-      console.log(
-        `News Title: "${news.title} "is not valid"
-        }`
-      );
-    }
+  if (!firstNewsLog.isValid) {
+    throw new Error(`News Title: "${firstNewsLog.title} "is not valid`);
   }
 });
